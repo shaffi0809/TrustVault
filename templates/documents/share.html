@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Document | TrustVault</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+        .container {
+            max-width: 700px;
+            margin: 30px auto;
+        }
+        .card {
+            background: white;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid #e5eaf1;
+            border-radius: 12px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #ccd5e2;
+            border-radius: 7px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #286fd1;
+            color: white;
+            padding: 10px 15px;
+            border: 0;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+        .revoke {
+            background: #b42318;
+        }
+        .message {
+            color: #167647;
+        }
+        .person {
+            padding: 14px 0;
+            border-bottom: 1px solid #edf0f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+        a {
+            color: #245eb5;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <p><a href="{% url 'home' %}">← Back to Dashboard</a></p>
+
+    <div class="card">
+        <h1>Share Document</h1>
+        <p>Document: <strong>{{ document.title }}</strong></p>
+        <p>Enter the username of the person you want to share with.</p>
+
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input id="username" type="text"
+                   name="username" maxlength="150" required>
+            <button type="submit">Share Document</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>People With Access</h2>
+
+        {% for shared_user in document.shared_with.all %}
+            <div class="person">
+                <span>{{ shared_user.username }}</span>
+
+                <form method="post"
+                      action="{% url 'revoke_access' document.id shared_user.id %}">
+                    {% csrf_token %}
+                    <button class="revoke" type="submit">
+                        Revoke Access
+                    </button>
+                </form>
+            </div>
+        {% empty %}
+            <p>No users have access to this document yet.</p>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
