@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Account | TrustVault</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f5f7fb;
+            font-family: Arial, sans-serif;
+            color: #172033;
+            padding: 20px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            padding: 38px;
+            border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+        }
+
+        .logo {
+            text-align: center;
+            color: #3557df;
+            font-size: 27px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 23px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #778197;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 15px 0 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #dce2eb;
+            border-radius: 9px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #3557df;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            border: none;
+            border-radius: 9px;
+            background: #3557df;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2845bd;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 23px;
+            color: #778197;
+        }
+
+        a {
+            color: #3557df;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .errors {
+            color: #c0392b;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="logo">◆ TrustVault</div>
+
+    <h2>Create your account</h2>
+    <p class="subtitle">
+        Securely store and share your documents
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+            </label>
+
+            {{ field }}
+
+            {% if field.errors %}
+                <div class="errors">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+            <div class="errors">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <button type="submit">Create Account →</button>
+    </form>
+
+    <div class="footer">
+        Already have an account?
+        <a href="{% url 'login' %}">Sign in</a>
+    </div>
+</div>
+
+</body>
+</html>
