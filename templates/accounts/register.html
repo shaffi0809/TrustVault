@@ -2,152 +2,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Create Account | TrustVault</title>
-    <style>
-        * { box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account | TrustVault</title>
+<style>
+* { box-sizing: border-box; }
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #f5f7fb;
-            font-family: Arial, sans-serif;
-            color: #172033;
-            padding: 20px;
-        }
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Inter, Arial, sans-serif;
+    background: radial-gradient(circle at 15% 15%, #123a58, transparent 38%),
+                linear-gradient(135deg, #07111f, #101d34);
+    color: #f3f8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+}
 
-        .card {
-            width: 100%;
-            max-width: 420px;
-            background: white;
-            padding: 38px;
-            border-radius: 18px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.07);
-        }
+.layout {
+    width: 100%;
+    max-width: 1050px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 65px;
+    align-items: center;
+}
 
-        .logo {
-            text-align: center;
-            color: #3557df;
-            font-size: 27px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
+.brand {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+}
 
-        h2 {
-            text-align: center;
-            font-size: 23px;
-            margin-bottom: 8px;
-        }
+.brand span { color: #44d9eb; }
 
-        .subtitle {
-            text-align: center;
-            color: #778197;
-            font-size: 14px;
-            margin-bottom: 28px;
-        }
+.hero h1 {
+    font-size: clamp(36px, 4vw, 55px);
+    line-height: 1.12;
+    letter-spacing: -2px;
+    margin: 35px 0 20px;
+}
 
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            margin: 15px 0 7px;
-        }
+.hero h1 span { color: #44d9eb; }
 
-        input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #dce2eb;
-            border-radius: 9px;
-            font-size: 14px;
-            outline: none;
-        }
+.hero p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #a6b7ca;
+    max-width: 440px;
+}
 
-        input:focus {
-            border-color: #3557df;
-        }
+.feature {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    align-items: center;
+    color: #c8d7e8;
+}
 
-        button {
-            width: 100%;
-            margin-top: 25px;
-            padding: 13px;
-            border: none;
-            border-radius: 9px;
-            background: #3557df;
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.feature-icon {
+    display: grid;
+    place-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    background: #143d4e;
+    color: #44d9eb;
+    flex-shrink: 0;
+}
 
-        button:hover {
-            background: #2845bd;
-        }
+.card {
+    background: #111e32;
+    border: 1px solid #293b53;
+    border-radius: 22px;
+    padding: 38px;
+    box-shadow: 0 25px 70px #0005;
+}
 
-        .footer {
-            text-align: center;
-            font-size: 14px;
-            margin-top: 23px;
-            color: #778197;
-        }
+.eyebrow {
+    color: #44d9eb;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
 
-        a {
-            color: #3557df;
-            text-decoration: none;
-            font-weight: bold;
-        }
+.card h2 {
+    font-size: 30px;
+    margin: 12px 0 8px;
+}
 
-        .errors {
-            color: #c0392b;
-            font-size: 12px;
-            margin-top: 6px;
-        }
-    </style>
+.subtitle {
+    color: #9aadc4;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 27px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 17px 0 8px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    padding: 13px 15px;
+    background: #0b1627;
+    border: 1px solid #35465d;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #44d9eb;
+    box-shadow: 0 0 0 3px #44d9eb20;
+}
+
+input::placeholder { color: #71849b; }
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    border: 0;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #36d3e6, #25a7d8);
+    color: #071421;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+button:hover { filter: brightness(1.08); }
+
+.signin {
+    text-align: center;
+    color: #9aadc4;
+    margin-top: 23px;
+    font-size: 14px;
+}
+
+a {
+    color: #44d9eb;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+a:hover { text-decoration: underline; }
+
+.errorlist {
+    color: #ff9c9c;
+    font-size: 12px;
+    line-height: 1.6;
+    padding-left: 18px;
+}
+
+.helptext {
+    display: block;
+    color: #8fa4bb;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 7px;
+}
+
+.helptext ul { padding-left: 18px; }
+
+@media (max-width: 800px) {
+    .layout {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        gap: 25px;
+    }
+    .hero h1 { font-size: 34px; margin: 20px 0 10px; }
+    .hero p { font-size: 14px; }
+    .feature { display: none; }
+    .card { padding: 26px 22px; }
+}
+</style>
 </head>
 <body>
 
-<div class="card">
-    <div class="logo">◆ TrustVault</div>
+<main class="layout">
+    <section class="hero">
+        <div class="brand">⬡ Trust<span>Vault</span></div>
+        <h1>Your documents.<br><span>Your control.</span></h1>
+        <p>
+            Create your workspace to organize documents,
+            manage sharing permissions, and keep track
+            of document activity.
+        </p>
 
-    <h2>Create your account</h2>
-    <p class="subtitle">
-        Securely store and share your documents
-    </p>
+        <div class="feature">
+            <span class="feature-icon">✓</span>
+            Organize your important files
+        </div>
+        <div class="feature">
+            <span class="feature-icon">✓</span>
+            Control who can access shared documents
+        </div>
+        <div class="feature">
+            <span class="feature-icon">✓</span>
+            Track document activity
+        </div>
+    </section>
 
-    <form method="POST">
-        {% csrf_token %}
+    <section class="card">
+        <div class="eyebrow">GET STARTED</div>
+        <h2>Create account</h2>
+        <p class="subtitle">Join TrustVault and start managing your documents.</p>
 
-        {% for field in form %}
-            <label for="{{ field.id_for_label }}">
-                {{ field.label }}
-            </label>
+        <form method="post">
+            {% csrf_token %}
 
-            {{ field }}
-
-            {% if field.errors %}
-                <div class="errors">
-                    {{ field.errors }}
-                </div>
-            {% endif %}
-        {% endfor %}
-
-        {% if form.non_field_errors %}
-            <div class="errors">
+            {% if form.non_field_errors %}
                 {{ form.non_field_errors }}
-            </div>
-        {% endif %}
+            {% endif %}
 
-        <button type="submit">Create Account →</button>
-    </form>
+            {% for field in form %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
 
-    <div class="footer">
-        Already have an account?
-        <a href="{% url 'login' %}">Sign in</a>
-    </div>
-</div>
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+
+                {% if field.help_text %}
+                    <div class="helptext">{{ field.help_text|safe }}</div>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit">Create Account →</button>
+        </form>
+
+        <p class="signin">
+            Already have an account?
+            <a href="{% url 'login' %}">Sign in</a>
+        </p>
+    </section>
+</main>
 
 </body>
 </html>

@@ -1,0 +1,154 @@
+
+:root {
+    --primary: #0c1728;
+    --secondary: #111e32;
+    --accent: #42d8eb;
+    --primary-fg: #f3f8ff;
+
+    --body-bg: #07111f;
+    --body-fg: #f3f8ff;
+
+    --header-bg: #0c1728;
+    --header-color: #f3f8ff;
+
+    --breadcrumbs-bg: #14253a;
+    --breadcrumbs-fg: #d7e6f7;
+
+    --link-fg: #42d8eb;
+    --link-hover-color: #8bf0fa;
+
+    --hairline-color: #293b53;
+    --border-color: #293b53;
+
+    --darkened-bg: #0c1728;
+    --selected-bg: #173447;
+    --selected-row: #173447;
+
+    --button-bg: #188fa8;
+    --button-hover-bg: #22b4ca;
+    --default-button-bg: #27b9d0;
+    --default-button-hover-bg: #42d8eb;
+}
+
+html[data-theme="light"],
+html[data-theme="dark"] {
+    --primary: #0c1728;
+    --secondary: #111e32;
+    --accent: #42d8eb;
+    --primary-fg: #f3f8ff;
+    --body-bg: #07111f;
+    --body-fg: #f3f8ff;
+    --header-bg: #0c1728;
+    --header-color: #f3f8ff;
+    --link-fg: #42d8eb;
+    --link-hover-color: #8bf0fa;
+    --hairline-color: #293b53;
+    --border-color: #293b53;
+    --darkened-bg: #0c1728;
+    --selected-bg: #173447;
+    --selected-row: #173447;
+}
+
+body {
+    background: #07111f;
+    color: #f3f8ff;
+    font-family: Arial, sans-serif;
+}
+
+#header {
+    background: #0c1728;
+    border-bottom: 1px solid #293b53;
+    padding: 18px 28px;
+}
+
+#site-name a {
+    color: #f3f8ff !important;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+#content {
+    padding: 28px;
+}
+
+.module,
+#content-related,
+.inline-group {
+    background: #111e32;
+    border: 1px solid #293b53;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.module h2,
+.module caption {
+    background: #173447;
+    color: #42d8eb;
+    padding: 13px;
+}
+
+#content-related h3 {
+    color: #42d8eb;
+}
+
+a {
+    color: #42d8eb;
+}
+
+input,
+select,
+textarea {
+    background: #0b1627;
+    color: #f3f8ff;
+    border: 1px solid #35475e;
+    border-radius: 7px;
+    padding: 9px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #42d8eb;
+}
+
+.button,
+input[type="submit"],
+.submit-row input {
+    background: #188fa8;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    padding: 11px 17px;
+}
+
+.button:hover,
+input[type="submit"]:hover {
+    background: #22b4ca;
+}
+
+#login-form {
+    background: #111e32;
+    border: 1px solid #293b53;
+    border-radius: 16px;
+    padding: 25px;
+}
+
+body.login #container {
+    max-width: 460px;
+    margin: 8vh auto;
+    background: transparent;
+}
+
+body.login #content {
+    padding: 20px;
+}
+
+body.login #header {
+    border-radius: 14px 14px 0 0;
+}
+
+@media (max-width: 767px) {
+    #content {
+        padding: 16px;
+    }
+}

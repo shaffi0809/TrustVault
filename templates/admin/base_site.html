@@ -1,0 +1,23 @@
+
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}
+TrustVault Administration
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        ⬡ Trust<span style="color:#42d8eb;">Vault</span>
+        <small style="font-size:12px;color:#9cafc6;">
+            Administration
+        </small>
+    </a>
+</h1>
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/admin_custom.css' %}">
+{% endblock %}

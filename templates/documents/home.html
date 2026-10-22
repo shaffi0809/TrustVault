@@ -2,143 +2,614 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrustVault Dashboard</title>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #172033;
-        }
-        header {
-            background: white;
-            padding: 20px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #e5eaf1;
-        }
-        .brand { font-size: 23px; font-weight: bold; color: #245eb5; }
-        header a { color: #245eb5; text-decoration: none; }
-        main { max-width: 1100px; margin: 35px auto; padding: 0 20px; }
-        h1 { margin-bottom: 8px; }
-        .muted { color: #687386; }
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 18px;
-            margin: 25px 0;
-        }
-        .card {
-            background: white;
-            padding: 22px;
-            border-radius: 14px;
-            border: 1px solid #e5eaf1;
-        }
-        .number { font-size: 30px; font-weight: bold; margin-top: 10px; }
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0 15px;
-            border: 1px solid #d5dce7;
-            border-radius: 7px;
-        }
-        button {
-            background: #286fd1;
-            color: white;
-            padding: 12px 18px;
-            border: 0;
-            border-radius: 7px;
-            cursor: pointer;
-        }
-        .document {
-            padding: 14px 0;
-            border-bottom: 1px solid #edf0f5;
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .document a { color: #245eb5; text-decoration: none; }
-        .error { color: #b42318; }
-        section { margin-bottom: 24px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | TrustVault</title>
+<style>
+:root {
+    --bg: #07111f;
+    --sidebar: #0c1728;
+    --card: #111e32;
+    --border: #283a51;
+    --text: #f2f7ff;
+    --muted: #9cafc6;
+    --accent: #42d8eb;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, Arial, sans-serif;
+}
+a { text-decoration: none; color: inherit; }
+button, input { font: inherit; }
+.layout { display: flex; min-height: 100vh; }
+
+/* Sidebar */
+.sidebar {
+    width: 255px;
+    flex-shrink: 0;
+    background: var(--sidebar);
+    border-right: 1px solid var(--border);
+    padding: 30px 18px;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+.brand {
+    font-size: 24px;
+    font-weight: 800;
+    padding: 5px 12px 35px;
+    letter-spacing: -.6px;
+}
+.brand span { color: var(--accent); }
+.nav-label {
+    font-size: 11px;
+    letter-spacing: 1.6px;
+    color: #7187a3;
+    padding: 0 12px;
+    margin-bottom: 14px;
+}
+.nav-link {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 14px;
+    margin-bottom: 6px;
+    border-radius: 10px;
+    color: var(--muted);
+    font-size: 14px;
+}
+.nav-link:hover, .nav-link.active {
+    background: #173447;
+    color: var(--accent);
+}
+.sidebar-bottom {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+}
+.user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.avatar {
+    width: 39px;
+    height: 39px;
+    border-radius: 12px;
+    background: #174557;
+    color: var(--accent);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+.username {
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+.user-role {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 4px;
+}
+.logout { color: #ffb4b4; }
+.logout-btn {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background: #173447;
+}
+
+/* Main */
+.main {
+    flex: 1;
+    min-width: 0;
+    padding: 36px clamp(18px, 4vw, 55px);
+}
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 34px;
+}
+.page-label {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+.topbar h1 {
+    font-size: clamp(27px, 3vw, 38px);
+    letter-spacing: -1px;
+    margin: 9px 0;
+}
+.muted {
+    color: var(--muted);
+    line-height: 1.6;
+}
+.status {
+    border: 1px solid #275b58;
+    background: #12332f;
+    color: #8ce4c7;
+    padding: 10px 15px;
+    border-radius: 30px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Welcome banner */
+.banner {
+    background: linear-gradient(110deg, #14384e, #11253c 65%, #172b49);
+    border: 1px solid #28516b;
+    padding: 30px;
+    border-radius: 18px;
+    margin-bottom: 24px;
+}
+.banner h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+}
+.banner p {
+    color: #b4cadd;
+    margin: 0;
+    line-height: 1.7;
+}
+
+/* Stats */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+.stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 23px;
+    border-radius: 16px;
+}
+.stat-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+.stat-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    background: #173c4c;
+    color: var(--accent);
+    border-radius: 12px;
+    font-size: 20px;
+}
+.number {
+    font-size: 38px;
+    font-weight: 800;
+    margin-top: 15px;
+}
+
+/* Panels */
+.panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+.panel-head {
+    padding: 24px 26px;
+    border-bottom: 1px solid var(--border);
+}
+.panel-head h2 {
+    margin: 0 0 7px;
+    font-size: 19px;
+}
+.panel-head p {
+    margin: 0;
+    font-size: 13px;
+}
+.panel-body { padding: 25px 26px; }
+
+/* Upload */
+.upload-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+input[type="text"], input[type="file"] {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px;
+    background: #0b1627;
+    color: var(--text);
+    border: 1px solid #35475e;
+    border-radius: 10px;
+    outline: none;
+}
+input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px #42d8eb20;
+}
+input[type="file"]::file-selector-button {
+    border: 0;
+    border-radius: 6px;
+    background: #193e51;
+    color: var(--accent);
+    padding: 7px 10px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 22px;
+    border: 0;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #43dce9, #27a9d6);
+    color: #071421;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.primary-btn:hover { filter: brightness(1.08); }
+.error {
+    background: #451e2b;
+    border: 1px solid #853a4a;
+    color: #ffc4c4;
+    border-radius: 9px;
+    padding: 12px;
+    margin-bottom: 18px;
+}
+
+/* Documents */
+.document {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 26px;
+    border-bottom: 1px solid var(--border);
+}
+.document:last-child { border-bottom: 0; }
+.doc-info {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+}
+.file-icon {
+    display: grid;
+    place-items: center;
+    width: 43px;
+    height: 43px;
+    border-radius: 11px;
+    background: #173c4c;
+    color: var(--accent);
+    flex-shrink: 0;
+    font-size: 19px;
+}
+.doc-title {
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+.doc-meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+}
+.doc-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 13px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    background: #18384a;
+    color: var(--accent);
+    border: 1px solid #29576a;
+}
+.action-btn:hover { background: #225268; }
+.action-btn.secondary {
+    color: #d5e3f3;
+    background: #202f45;
+    border-color: #3a4b64;
+}
+.empty {
+    padding: 35px 25px;
+    text-align: center;
+    color: var(--muted);
+    line-height: 1.7;
+}
+.empty-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.footer {
+    text-align: center;
+    color: #7187a3;
+    font-size: 12px;
+    padding: 10px 0 20px;
+}
+
+@media(max-width: 950px) {
+    .sidebar { width: 210px; }
+    .upload-grid { grid-template-columns: 1fr; }
+}
+@media(max-width: 700px) {
+    .layout { display: block; }
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 15px;
+    }
+    .brand { padding: 5px 8px 15px; }
+    .nav-label { display: none; }
+    .sidebar nav {
+        display: flex;
+        gap: 5px;
+        overflow-x: auto;
+    }
+    .nav-link {
+        white-space: nowrap;
+        padding: 10px;
+        font-size: 12px;
+    }
+    .sidebar-bottom {
+        margin-top: 5px;
+        padding-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .user { margin: 0; }
+    .main { padding: 23px 15px; }
+    .topbar { align-items: flex-start; }
+    .status { display: none; }
+    .stats { gap: 10px; }
+    .stat { padding: 17px; }
+    .number { font-size: 30px; }
+    .panel-head, .panel-body { padding: 19px; }
+    .document {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 17px 19px;
+        gap: 15px;
+    }
+    .doc-actions { padding-left: 0; }
+    .banner { padding: 23px; }
+}
+</style>
 </head>
 <body>
-<header>
-    <div class="brand">TrustVault</div>
-    <div>
-        Welcome, {{ request.user.username }} |
-        <a href="/logout/">Log out</a>
-    </div>
-</header>
 
-<main>
-    <h1>Your secure workspace</h1>
-    <p class="muted">Manage your documents and access shared files.</p>
+<div class="layout">
 
-    <div class="cards">
-        <div class="card">
-            <div class="muted">My Documents</div>
-            <div class="number">{{ my_documents|length }}</div>
-        </div>
-        <div class="card">
-            <div class="muted">Shared With Me</div>
-            <div class="number">{{ shared_documents|length }}</div>
-        </div>
-    </div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">⬡ Trust<span>Vault</span></div>
 
-    <section class="card">
-        <h2>Upload Document</h2>
-        <p class="muted">Choose a document to store in your account. Maximum size: 5 MB.</p>
+        <nav aria-label="Dashboard navigation">
+            <a class="nav-link active" href="#overview">◈ &nbsp; Overview</a>
+            <a class="nav-link" href="#upload">↑ &nbsp; Upload</a>
+            <a class="nav-link" href="#my-documents">▤ &nbsp; My Documents</a>
+            <a class="nav-link" href="#shared">⇄ &nbsp; Shared With Me</a>
+        </nav>
 
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
-
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label for="title">Document title</label>
-            <input id="title" type="text" name="title"
-                   maxlength="200" required>
-
-            <label for="file">Choose file</label>
-            <input id="file" type="file" name="file" required>
-
-            <button type="submit">Upload Document</button>
-        </form>
-    </section>
-
-    <section class="card">
-        <h2>My Documents</h2>
-        {% for doc in my_documents %}
-            <div class="document">
+        <div class="sidebar-bottom">
+            <div class="user">
+                <div class="avatar">{{ request.user.username|first|upper }}</div>
                 <div>
-                    <strong>{{ doc.title }}</strong><br>
-                    <small class="muted">{{ doc.uploaded_at|date:"d M Y, H:i" }}</small>
+                    <div class="username">{{ request.user.username }}</div>
+                    <div class="user-role">Workspace member</div>
                 </div>
-                <a href="{% url 'download_document' doc.id %}">Download</a>
-                <a href="{% url 'share_document' doc.id %}">Share / Manage Access</a>
             </div>
-        {% empty %}
-            <p class="muted">You haven't uploaded any documents yet.</p>
-        {% endfor %}
-    </section>
+            
+<form method="post" action="{% url 'logout' %}" style="margin: 0;">
+    {% csrf_token %}
+    <button type="submit" class="nav-link logout logout-btn">
+        ↪ &nbsp; Log out
+    </button>
+</form>
 
-    <section class="card">
-        <h2>Shared With Me</h2>
-        {% for doc in shared_documents %}
-            <div class="document">
-                <strong>{{ doc.title }}</strong>
-                <a href="{% url 'download_document' doc.id %}">Download</a>
+        </div>
+    </aside>
+
+    <!-- MAIN DASHBOARD -->
+    <main class="main" id="overview">
+
+        <div class="topbar">
+            <div>
+                <div class="page-label">YOUR WORKSPACE</div>
+                <h1>Dashboard</h1>
+                <div class="muted">Welcome back, {{ request.user.username }}.</div>
             </div>
-        {% empty %}
-            <p class="muted">No documents have been shared with you yet.</p>
-        {% endfor %}
-    </section>
-</main>
+            <div class="status">● Workspace active</div>
+        </div>
+
+        <section class="banner">
+            <h2>Your documents. Your control.</h2>
+            <p>
+                Upload documents, manage sharing permissions,
+                and access files shared with you — all from one workspace.
+            </p>
+        </section>
+
+        <!-- STATISTICS -->
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-head">
+                    <span class="muted">My Documents</span>
+                    <span class="stat-icon">▤</span>
+                </div>
+                <div class="number">{{ my_documents|length }}</div>
+            </div>
+            <div class="stat">
+                <div class="stat-head">
+                    <span class="muted">Shared With Me</span>
+                    <span class="stat-icon">⇄</span>
+                </div>
+                <div class="number">{{ shared_documents|length }}</div>
+            </div>
+        </div>
+
+        <!-- UPLOAD DOCUMENT -->
+        <section class="panel" id="upload">
+            <div class="panel-head">
+                <h2>↑ Upload Document</h2>
+                <p class="muted">Add a new file to your workspace. Maximum file size: 5 MB.</p>
+            </div>
+
+            <div class="panel-body">
+                {% if error %}
+                    <div class="error">{{ error }}</div>
+                {% endif %}
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="upload-grid">
+                        <div>
+                            <label for="title">Document title</label>
+                            <input
+                                id="title"
+                                type="text"
+                                name="title"
+                                maxlength="200"
+                                placeholder="e.g. Project Report"
+                                required
+                            >
+                        </div>
+
+                        <div>
+                            <label for="file">Choose file</label>
+                            <input
+                                id="file"
+                                type="file"
+                                name="file"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <button type="submit" class="primary-btn">
+                        ↑ &nbsp; Upload Document
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- MY DOCUMENTS -->
+        <section class="panel" id="my-documents">
+            <div class="panel-head">
+                <h2>My Documents</h2>
+                <p class="muted">View and manage documents you have uploaded.</p>
+            </div>
+
+            {% for doc in my_documents %}
+                <div class="document">
+                    <div class="doc-info">
+                        <div class="file-icon">▤</div>
+                        <div>
+                            <div class="doc-title">{{ doc.title }}</div>
+                            <div class="doc-meta">
+                                Uploaded {{ doc.uploaded_at|date:"d M Y, H:i" }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="doc-actions">
+                        <a class="action-btn"
+                           href="{% url 'download_document' doc.id %}">
+                            ↓ Download
+                        </a>
+
+                        <a class="action-btn secondary"
+                           href="{% url 'share_document' doc.id %}">
+                            ⇄ Share / Manage
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty">
+                    <div class="empty-icon">▤</div>
+                    You haven't uploaded any documents yet.
+                    <div>Use the upload form above to get started.</div>
+                </div>
+            {% endfor %}
+        </section>
+
+        <!-- SHARED WITH ME -->
+        <section class="panel" id="shared">
+            <div class="panel-head">
+                <h2>Shared With Me</h2>
+                <p class="muted">Documents other users have shared with your account.</p>
+            </div>
+
+            {% for doc in shared_documents %}
+                <div class="document">
+                    <div class="doc-info">
+                        <div class="file-icon">⇄</div>
+                        <div>
+                            <div class="doc-title">{{ doc.title }}</div>
+                            <div class="doc-meta">
+                                Shared by {{ doc.owner.username }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="doc-actions">
+                        <a class="action-btn"
+                           href="{% url 'download_document' doc.id %}">
+                            ↓ Download
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty">
+                    <div class="empty-icon">⇄</div>
+                    No documents have been shared with you yet.
+                </div>
+            {% endfor %}
+        </section>
+
+        <div class="footer">
+            © 2026 TrustVault · Document Management Workspace
+        </div>
+
+    </main>
+</div>
+
 </body>
 </html>

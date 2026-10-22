@@ -21,3 +21,18 @@ documents/migrations/*
 !documents/migrations/0001_initial.py
 !documents/migrations/0002_document_shared_with.py
 !documents/migrations/0003_auditlog.py
+# Uploaded documents
+/media/
+/documents/
+
+# Local database
+/db.sqlite3
+
+# Environment and secrets
+.env
+.env.*
+
+# Python
+venv/
+__pycache__/
+*.pyc
