@@ -13,7 +13,7 @@ def login_view(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
             return redirect("admin_dashboard")
-        return redirect("/home/")
+        return redirect("home")
 
     if request.method == "POST":
         username = request.POST.get("username", "").strip()
