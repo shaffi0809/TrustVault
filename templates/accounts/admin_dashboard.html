@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Dashboard | TrustVault</title>
+
 <style>
 :root {
     --bg: #07111f;
@@ -15,15 +16,25 @@
     --muted: #9cafc6;
     --accent: #42d8eb;
 }
+
 * { box-sizing: border-box; }
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
 }
-a { color: inherit; text-decoration: none; }
-.layout { display: flex; min-height: 100vh; }
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
 
 .sidebar {
     width: 250px;
@@ -32,88 +43,138 @@ a { color: inherit; text-decoration: none; }
     border-right: 1px solid var(--border);
     padding: 28px 18px;
 }
+
 .brand {
     font-size: 24px;
     font-weight: 800;
     margin-bottom: 45px;
 }
+
 .brand span { color: var(--accent); }
+
 .nav-link {
     display: block;
+    width: 100%;
     padding: 14px;
     margin-bottom: 8px;
     border-radius: 10px;
     color: var(--muted);
     font-size: 14px;
 }
-.nav-link:hover, .nav-link.active {
+
+.nav-link:hover,
+.nav-link.active {
     background: #173447;
     color: var(--accent);
 }
+
+/* Logout Button */
+
+.logout-form {
+    margin-top: 24px;
+}
+
+.logout-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: #48232d;
+    color: #ff9fa9;
+    border: 1px solid #8c3948;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    background: #c73549;
+    color: white;
+}
+
 .main {
     flex: 1;
     min-width: 0;
     padding: 38px clamp(18px, 4vw, 50px);
 }
+
 .eyebrow {
     color: var(--accent);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 2px;
 }
+
 h1 {
     font-size: 35px;
     margin: 10px 0;
 }
+
 .muted { color: var(--muted); }
+
 .stats {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
     margin: 30px 0;
 }
+
 .stat, .panel {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
 }
+
 .stat { padding: 24px; }
+
 .number {
     font-size: 36px;
     font-weight: 800;
     margin-top: 14px;
     color: var(--accent);
 }
+
 .panel {
     margin-bottom: 24px;
     overflow: hidden;
 }
+
 .panel-head {
     padding: 22px 25px;
     border-bottom: 1px solid var(--border);
 }
+
 .panel-head h2 {
     margin: 0;
     font-size: 19px;
 }
+
 .table-wrap { overflow-x: auto; }
+
 table {
     width: 100%;
     border-collapse: collapse;
     min-width: 550px;
 }
+
 th, td {
     padding: 16px 24px;
     text-align: left;
     border-bottom: 1px solid var(--border);
     font-size: 13px;
 }
+
 th {
     color: var(--muted);
     font-weight: 600;
 }
+
 td { overflow-wrap: anywhere; }
+
 tr:last-child td { border-bottom: 0; }
+
 .tag {
     display: inline-block;
     background: #173c4c;
@@ -122,63 +183,107 @@ tr:last-child td { border-bottom: 0; }
     padding: 6px 9px;
     font-size: 11px;
 }
+
 .empty {
     color: var(--muted);
     padding: 24px;
 }
+
 @media(max-width: 850px) {
     .layout { display: block; }
+
     .sidebar {
         width: 100%;
         padding: 18px;
     }
+
     .brand { margin-bottom: 16px; }
+
     .sidebar nav {
         display: flex;
         flex-wrap: wrap;
         gap: 6px;
     }
+
     .nav-link { margin: 0; }
+
+    .logout-form {
+        margin-top: 12px;
+    }
+
     .main { padding: 25px 16px; }
+
     .stats { grid-template-columns: 1fr; }
 }
 </style>
 </head>
+
 <body>
 
 <div class="layout">
 
     <aside class="sidebar">
-        <div class="brand">⬡ Trust<span>Vault</span></div>
+
+        <div class="brand">
+            ⬡ Trust<span>Vault</span>
+        </div>
 
         <nav>
-            <a class="nav-link active" href="{% url 'admin_dashboard' %}">
+
+            <a class="nav-link active"
+               href="{% url 'admin_dashboard' %}">
                 ◈ Admin Overview
             </a>
+
             <a class="nav-link" href="#documents">
                 ▤ Recent Documents
             </a>
+
             <a class="nav-link" href="#activity">
                 ⇄ Activity Logs
             </a>
+
             <a class="nav-link" href="{% url 'home' %}">
                 ← User Dashboard
             </a>
+
             <a class="nav-link" href="/admin/">
                 ⚙ Django Administration
             </a>
+
         </nav>
+
+        <!-- Secure Logout Button -->
+
+        <form class="logout-form"
+              action="{% url 'logout' %}"
+              method="post">
+
+            {% csrf_token %}
+
+            <button type="submit" class="logout-btn">
+                ⏻ Logout
+            </button>
+
+        </form>
+
     </aside>
 
     <main class="main">
-        <div class="eyebrow">TRUSTVAULT ADMINISTRATION</div>
+
+        <div class="eyebrow">
+            TRUSTVAULT ADMINISTRATION
+        </div>
+
         <h1>Admin Dashboard</h1>
+
         <p class="muted">
             Welcome, {{ request.user.username }}.
             Monitor document activity and workspace statistics.
         </p>
 
         <div class="stats">
+
             <div class="stat">
                 <div class="muted">Total Users</div>
                 <div class="number">{{ total_users }}</div>
@@ -193,14 +298,17 @@ tr:last-child td { border-bottom: 0; }
                 <div class="muted">Active Document Shares</div>
                 <div class="number">{{ total_shares }}</div>
             </div>
+
         </div>
 
         <section class="panel" id="documents">
+
             <div class="panel-head">
                 <h2>Recent Documents</h2>
             </div>
 
             <div class="table-wrap">
+
                 <table>
                     <thead>
                         <tr>
@@ -209,30 +317,43 @@ tr:last-child td { border-bottom: 0; }
                             <th>Uploaded</th>
                         </tr>
                     </thead>
+
                     <tbody>
+
                         {% for doc in recent_documents %}
+
                         <tr>
                             <td>{{ doc.title }}</td>
                             <td>{{ doc.owner.username }}</td>
                             <td>{{ doc.uploaded_at|date:"d M Y, H:i" }}</td>
                         </tr>
+
                         {% empty %}
+
                         <tr>
-                            <td colspan="3">No documents available.</td>
+                            <td colspan="3">
+                                No documents available.
+                            </td>
                         </tr>
+
                         {% endfor %}
+
                     </tbody>
                 </table>
+
             </div>
         </section>
 
         <section class="panel" id="activity">
+
             <div class="panel-head">
                 <h2>Recent Activity Logs</h2>
             </div>
 
             <div class="table-wrap">
+
                 <table>
+
                     <thead>
                         <tr>
                             <th>Action</th>
@@ -241,10 +362,19 @@ tr:last-child td { border-bottom: 0; }
                             <th>Time</th>
                         </tr>
                     </thead>
+
                     <tbody>
+
                         {% for log in recent_logs %}
+
                         <tr>
-                            <td><span class="tag">{{ log.action }}</span></td>
+
+                            <td>
+                                <span class="tag">
+                                    {{ log.action }}
+                                </span>
+                            </td>
+
                             <td>
                                 {% if log.user %}
                                     {{ log.user.username }}
@@ -252,6 +382,7 @@ tr:last-child td { border-bottom: 0; }
                                     Deleted user
                                 {% endif %}
                             </td>
+
                             <td>
                                 {% if log.document %}
                                     {{ log.document.title }}
@@ -259,17 +390,31 @@ tr:last-child td { border-bottom: 0; }
                                     Deleted document
                                 {% endif %}
                             </td>
-                            <td>{{ log.timestamp|date:"d M Y, H:i" }}</td>
+
+                            <td>
+                                {{ log.timestamp|date:"d M Y, H:i" }}
+                            </td>
+
                         </tr>
+
                         {% empty %}
+
                         <tr>
-                            <td colspan="4">No activity recorded yet.</td>
+                            <td colspan="4">
+                                No activity recorded yet.
+                            </td>
                         </tr>
+
                         {% endfor %}
+
                     </tbody>
+
                 </table>
+
             </div>
+
         </section>
+
     </main>
 
 </div>
