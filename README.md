@@ -2,6 +2,7 @@
 
 **A Django-based web application for secure document management, controlled sharing, and activity tracking.**
 
+
 ## Demo Accounts
 
 The following accounts are provided for testing the TrustVault application.
@@ -9,7 +10,8 @@ The following accounts are provided for testing the TrustVault application.
 | Role | Username | Password | Access |
 |---|---|---|---|
 | Admin | `SNOVASYS` | `s1n2o3@1` | Administrative access |
-| Document Owner | `user` | `u1s2e3r4@1` | Upload, manage, download, and share owned documents |
+| Document Owner | `user` | `u1s2e3r4@` | Upload, manage, download, and share owned documents |
+| Viewer | `user1` | `u1s2e3r4@1` | View and download documents shared with them |
 
 
 ## Project Overview
